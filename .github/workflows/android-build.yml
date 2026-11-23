@@ -28,12 +28,15 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build Debug APK
-        run: |
-          chmod +x gradlew
-          ./gradlew clean assembleDebug
+        run: ./gradlew clean assembleDebug
 
-      - name: Upload APK
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
+
+      - name: Upload APKs
         uses: actions/upload-artifact@v4
         with:
-          name: baedle-debug
-          path: app/build/outputs/apk/debug/*.apk
+          name: baedle-android
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            app/build/outputs/apk/release/*.apk
